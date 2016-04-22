@@ -1,5 +1,5 @@
-#ifndef OPENGLWIDGET_H
-#define OPENGLWIDGET_H
+#ifndef GLWIDGET_H
+#define GLWIDGET_H
 
 #include <QGLWidget>
 #include "camera.h"
@@ -7,17 +7,17 @@
 class Camera;
 class Sim;
 
-class OpenGLWidget : public QGLWidget
+class GLWidget : public QGLWidget
 {
     Q_OBJECT
 
 
 public:
     // Constructor
-    OpenGLWidget(QWidget *parent = 0);
+    GLWidget(QWidget *parent = 0);
 
     // Destructor
-    ~OpenGLWidget();
+    ~GLWidget();
 
 
 protected:
@@ -71,4 +71,4 @@ private:
         //====================================
 
 };
-#endif // OPENGLWIDGET_H
+#endif // GLWIDGET_H

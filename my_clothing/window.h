@@ -4,12 +4,12 @@
 //#include <QMainWindow>
 //#include <QDialog>
 #include "ui_MainWindow.h"
-#include "openglwidget.h"
+#include "glwidget.h"
 #include "spring.h"
 
 namespace Ui {
     class sim;
-    class OpenGLWidget;
+    class GLWidget;
     class MainWindow;
 }
 
@@ -24,7 +24,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    OpenGLWidget *myopenglwidget;
+    GLWidget *myglwidget;
     Sim *mySim;
     void displaySpringDetails();
 

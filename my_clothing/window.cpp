@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     // Create an instance of the widget and sim used for simulation
-    myopenglwidget = new OpenGLWidget(parent);
+    myglwidget = new GLWidget(parent);
 
     // Create all required components of application
     ui->setupUi(this);
@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     cout << "window deconstruction" << endl;
-    delete myopenglwidget;
+    delete myglwidget;
     delete ui;
 }
 
@@ -33,30 +33,30 @@ void MainWindow::displaySpringDetails()
 // Boxes for changing logic
 void MainWindow::box_dampingConstant(float value)
 {
-    myopenglwidget->mySim->myFlag->dampingConstant = value;
+    myglwidget->mySim->myFlag->dampingConstant = value;
     //ui->lcd_damping_constant->display(value); // removed display
-    myopenglwidget->button_reset();
+    myglwidget->button_reset();
 }
 
 void MainWindow::box_restLength(float value)
 {
-    myopenglwidget->mySim->myFlag->springs[0]->restLength = value;
+    myglwidget->mySim->myFlag->springs[0]->restLength = value;
     //ui->lcd_rest_length->display(value); // removed display
-    myopenglwidget->button_reset();
+    myglwidget->button_reset();
 }
 
 void MainWindow::box_mass(float value)
 {
-    myopenglwidget->mySim->myFlag->particleMass = value;
+    myglwidget->mySim->myFlag->particleMass = value;
     //ui->lcd_mass->display(value); // removed display
-    myopenglwidget->button_reset();
+    myglwidget->button_reset();
 }
 
 void MainWindow::box_springConstant(float value)
 {
-    myopenglwidget->mySim->myFlag->springConstant = value;
+    myglwidget->mySim->myFlag->springConstant = value;
     //ui->lcd_spring_constant->display(value); // removed display
-    myopenglwidget->button_reset();
+    myglwidget->button_reset();
 }
 
 void  MainWindow::dampingSlider(int a)

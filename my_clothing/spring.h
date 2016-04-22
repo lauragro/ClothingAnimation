@@ -2,7 +2,7 @@
 #define SPRING_H
 
 #include "foundation.h"
-#include "openglwidget.h"
+#include "glwidget.h"
 #include "particle.h"
 
 class Spring

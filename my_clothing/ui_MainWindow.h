@@ -21,7 +21,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
-#include <openglwidget.h>
+#include <glwidget.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -29,7 +29,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    OpenGLWidget *openGLWidget;
+    GLWidget *glWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
     QPushButton *button1;
@@ -46,12 +46,12 @@ public:
         MainWindow->resize(1107, 676);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        openGLWidget = new OpenGLWidget(centralWidget);
-        openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
-        openGLWidget->setGeometry(QRect(20, 20, 801, 601));
+        glWidget = new GLWidget(centralWidget);
+        glWidget->setObjectName(QStringLiteral("glWidget"));
+        glWidget->setGeometry(QRect(20, 20, 801, 601));
         QFont font;
         font.setPointSize(16);
-        openGLWidget->setFont(font);
+        glWidget->setFont(font);
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(880, 400, 171, 201));
@@ -91,9 +91,9 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
-        QObject::connect(button1, SIGNAL(clicked()), openGLWidget, SLOT(button_go()));
-        QObject::connect(button2, SIGNAL(clicked()), openGLWidget, SLOT(button_stop()));
-        QObject::connect(button3, SIGNAL(clicked()), openGLWidget, SLOT(button_reset()));
+        QObject::connect(button1, SIGNAL(clicked()), glWidget, SLOT(button_go()));
+        QObject::connect(button2, SIGNAL(clicked()), glWidget, SLOT(button_stop()));
+        QObject::connect(button3, SIGNAL(clicked()), glWidget, SLOT(button_reset()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

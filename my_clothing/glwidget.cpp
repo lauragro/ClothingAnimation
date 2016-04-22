@@ -1,5 +1,5 @@
 #include <QtOpenGL>
-#include "openglwidget.h"
+#include "glwidget.h"
 #include "sim.h"
 #include "window.h"
 #include <QKeyEvent>
@@ -9,7 +9,7 @@
 static int timer_interval = 10;
 
 // Constructor
-OpenGLWidget::OpenGLWidget(QWidget *parent) : QGLWidget(parent)
+GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
     // test
     //setFormat(QGLFormat(QGL::Rgba | QGL::DoubleBuffer | QGL::DepthBuffer));
@@ -23,7 +23,7 @@ OpenGLWidget::OpenGLWidget(QWidget *parent) : QGLWidget(parent)
 }
 
 // Destructor
-OpenGLWidget::~OpenGLWidget()
+GLWidget::~GLWidget()
 {
     cout << "widget deconstruction" << endl;
     delete mySim;
@@ -31,7 +31,7 @@ OpenGLWidget::~OpenGLWidget()
 }
 
 // Connect to signals
-void OpenGLWidget::startup()
+void GLWidget::startup()
 {
     timer = new QTimer( this );
     frameTimer = new QTimer( this);
@@ -49,7 +49,7 @@ void OpenGLWidget::startup()
 
 
 // Initialize all graphics
-void OpenGLWidget::initializeGL()
+void GLWidget::initializeGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -109,7 +109,7 @@ void OpenGLWidget::initializeGL()
 }
 
 // Painting things
-void OpenGLWidget::paintGL()
+void GLWidget::paintGL()
 {
     //====Camera stuff from Lucky and 305 assignemnt===============
     myCamera->updatePos();
@@ -137,7 +137,7 @@ void OpenGLWidget::paintGL()
 /* Slots */
 
 // Advance frame logic (animation stuff)
-void OpenGLWidget::advanceFrame()
+void GLWidget::advanceFrame()
 {
     // if a simulation is present, advance it
     if (mySim != NULL)
@@ -158,7 +158,7 @@ void OpenGLWidget::advanceFrame()
 }
 
 // Advance time logic (camera stuff)
-void OpenGLWidget::advanceTime()
+void GLWidget::advanceTime()
 {
 
 
@@ -185,7 +185,7 @@ void OpenGLWidget::advanceTime()
 }
 
 // Go button Logic
-void OpenGLWidget::button_go()
+void GLWidget::button_go()
 {
     simMode = true;
     frameTimer->start( timer_interval );
@@ -194,7 +194,7 @@ void OpenGLWidget::button_go()
 }
 
 // Stop button logic
-void OpenGLWidget::button_stop()
+void GLWidget::button_stop()
 {
     simMode = false;
     frameTimer->stop();
@@ -204,7 +204,7 @@ void OpenGLWidget::button_stop()
 }
 
 // Reset button logic
-void OpenGLWidget::button_reset()
+void GLWidget::button_reset()
 {
     button_stop();      // end current simulation
     mySim = new Sim();  // create new simulation
@@ -216,7 +216,7 @@ void OpenGLWidget::button_reset()
 }
 
 /* 2D */
-void OpenGLWidget::resizeGL( int winw, int winh )
+void GLWidget::resizeGL( int winw, int winh )
 {
     cerr << "resizing\n";
     glViewport( 0, 0, winw, winh );
@@ -236,26 +236,26 @@ void OpenGLWidget::resizeGL( int winw, int winh )
 }
 
 /********** React to mouse buttons ***********/
-void OpenGLWidget::mousePressEvent(QMouseEvent *e)
+void GLWidget::mousePressEvent(QMouseEvent *e)
 {
     myCamera->MouseButton(e, true);
     //updateGL();   // not necessary
 }
 
-void OpenGLWidget::mouseReleaseEvent(QMouseEvent *e)
+void GLWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     myCamera->MouseButton(e, false);
     //updateGL();   // not necessary
 }
 
-void OpenGLWidget::mouseMoveEvent(QMouseEvent *e)
+void GLWidget::mouseMoveEvent(QMouseEvent *e)
 {
     myCamera->MouseMove(e->x(), e->y());
     //updateGL();   // not necessary
 }
 
 /*********** React to keyboard buttons ********/
-void OpenGLWidget::keyPressEvent(QKeyEvent *k)
+void GLWidget::keyPressEvent(QKeyEvent *k)
 {
     // Amount to move per step
     float stepSize = 10.0f;
@@ -338,7 +338,7 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *k)
 
 
 //========TEXTURES================================================
-void OpenGLWidget::Load2DGLTexture( const char * name, const int texID )
+void GLWidget::Load2DGLTexture( const char * name, const int texID )
 {
     QImage img;
 
@@ -357,7 +357,7 @@ void OpenGLWidget::Load2DGLTexture( const char * name, const int texID )
     glDisable(GL_TEXTURE_2D);
 }
 
-void OpenGLWidget::LoadSphereGLTexture( const char * name, const int texID )
+void GLWidget::LoadSphereGLTexture( const char * name, const int texID )
 {
     QImage img;
 
@@ -374,17 +374,10 @@ void OpenGLWidget::LoadSphereGLTexture( const char * name, const int texID )
         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 
-        /*GLfloat planes[] = {0.5, 0.0, 0.0, 0.5}; // s = x/2 + 1/2
-        GLfloat planet[] = {0.0, 0.5, 0.0, 0.5}; // t = y/2 + 1/2
-        glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
-        glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
-        glTexGenfv(GL_S, GL_SPHERE_MAP, planes);
-        glTexGenfv(GL_T, GL_SPHERE_MAP, planet);*/
-
     glDisable(GL_TEXTURE_2D);
 }
 
-void OpenGLWidget::initializeShader()
+void GLWidget::initializeShader()
 {
     //glEnable(GL_CULL_FACE);
     glEnable(GL_COLOR_MATERIAL);

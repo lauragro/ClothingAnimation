@@ -3,7 +3,7 @@
 
 #include <QMouseEvent>
 #include <QGraphicsView>
-#include <openglwidget.h>
+#include <glwidget.h>
 #include "foundation.h"
 
 class Camera : QGraphicsView

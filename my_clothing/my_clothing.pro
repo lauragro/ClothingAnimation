@@ -15,7 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
     sim.cpp \
     window.cpp \
-    openglwidget.cpp \
     spring.cpp \
     flag.cpp \
     particle.cpp \
@@ -23,14 +22,13 @@ SOURCES += main.cpp\
     camera.cpp \
     ground.cpp \
     person.cpp \
-    limb.cpp
+    glwidget.cpp
 
 HEADERS  += \
     sim.h \
     foundation.h \
     window.h \
     ui_MainWindow.h \
-    openglwidget.h \
     spring.h \
     flag.h \
     particle.h \
@@ -38,7 +36,7 @@ HEADERS  += \
     camera.h \
     ground.h \
     person.h \
-    limb.h
+    glwidget.h
 
 FORMS    += \
     MainWindow.ui
