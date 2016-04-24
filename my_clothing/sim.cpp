@@ -25,6 +25,15 @@ Sim::~Sim()
     delete myFlag;
 }
 
+// initialize all aspects for the simulation for resetting
+void Sim::initialize()
+{
+    myPerson->setOrigin(vec3(0.0f,0.0f,0.0f));
+    personMoved = false;
+    myFlag->initialize();
+    t = 0;
+}
+
 // Draw everything on screen
 void Sim::draw(GLuint * textures)
 {

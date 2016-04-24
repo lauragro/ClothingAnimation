@@ -37,14 +37,8 @@ public:
 
 private:
     static const int width = 256;  // length of a side of the square ground
-
-    //=====Shader Stuff===================
     void drawTextures(GLuint texture);
-    //====================================
 
-    // todo: fix this
-
-    //==========================================
 };
 
 #endif // GROUND_H

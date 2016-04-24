@@ -15,13 +15,11 @@ public:
 
     void startup();
 
-    glm::vec3 CameraPos;
+    vec3 CameraPos;
 
 public:
 
-    //===========Camera stuff from Lucky and 305 assignment===========
-        unsigned int width;
-        unsigned int height;
+    //===========Camera stuff adapted from Lucky and 305 assignment===========
         float linelength;
         float vppos_x;
         float vppos_y;
@@ -35,8 +33,6 @@ public:
         double lastX, lastY;
         bool left_pressed;
         bool right_pressed;
-
-        mat4 M_orth, M_persp, M_cam;
 
         void MouseMove(double x, double y);
         void MouseButton(QMouseEvent *e, bool press);

@@ -1,11 +1,5 @@
 #include "particle.h"
 
-// default constructor
-/*Particle::Particle()
-{
-    mass = 1.0f;
-    gravityForce = vec3(0.0f,9.81f,0.0f);
-}*/
 
 // position constructor
 Particle::Particle(float x, float y, float z)
@@ -26,15 +20,6 @@ Particle::Particle(float x, float y, float z)
     pinned = false;
 }
 
-// total state constructor
-/*Particle::Particle(vec3 position, vec3 velocity, vec3 acceleration)
-{
-    mass = 1.0f;
-    this->position = position;
-    this->velocity = velocity;
-    this->acceleration = acceleration;
-    gravityForce = vec3(0.0f,9.81f,0.0f);
-}*/
 
 // destructor
 Particle::~Particle()

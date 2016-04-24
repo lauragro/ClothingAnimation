@@ -22,6 +22,8 @@ class Sim
         Sim();
         ~Sim();
 
+        void initialize();
+
         // Draws all graphics
         void draw(GLuint * textures);
 

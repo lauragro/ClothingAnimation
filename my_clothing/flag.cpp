@@ -7,6 +7,8 @@ Flag::Flag(int zCentre, float startHeight)
     width = 1200.0f;
     particleMass = 1.0;
     dampingConstant = 1.0f;
+    this->zCentre = zCentre;
+    this->startHeight = startHeight;
 
     if(type == SHEET)
     {
@@ -81,6 +83,45 @@ Flag::~Flag()
 
 }
 
+// reset all aspects of the flag including particles and springs
+void Flag::initialize()
+{
+    int i,j,x,y,z;
+    vec3 lengthVector;
+
+    y = startHeight;   // at the snowman's neck
+
+    float halfWidth = (float)width/2.0f;
+    float halfHeight = (float)height/2.0f;
+
+    // initialize particles
+    for(i=0; i<particlesHigh; i++)
+    {
+        // z coord
+        z = zCentre - height/particlesHigh*(i+1) + halfHeight;
+
+        for(j=0; j<particlesWide; j++)
+        {
+            // x coord
+            x = width/particlesWide*(j+1) - halfWidth;
+
+            // initialize particle
+            particles[i][j]->position = particles[i][j]->position_old = vec3(x,y,z);
+            particles[i][j]->velocity = particles[i][j]->velocity_old = vec3(0.0f,0.0f,0.0f);
+            particles[i][j]->acceleration = particles[i][j]->acceleration_old = vec3(0.0f,0.0f,0.0f);
+
+        }
+    }
+
+    // initialize springs
+    for(i=0; i<implementedSprings; i++)
+    {
+        // rest length distance between 2 particles
+        lengthVector = springs[i]->particle2->position - springs[i]->particle1->position;
+        springs[i]->restLength = (float)length(lengthVector);
+        springs[i]->springLength = (float)length(lengthVector);
+    }
+}
 
 /* Construct all particles for a vertically hanging sheet */
 void Flag::createSheet(int zCentre)

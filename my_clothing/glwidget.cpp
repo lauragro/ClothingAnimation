@@ -170,7 +170,9 @@ void GLWidget::button_stop()
 void GLWidget::button_reset()
 {
     button_stop();      // end current simulation
-    mySim = new Sim();  // create new simulation
+
+    mySim->initialize();
+    //mySim = new Sim();  // create new simulation
     initializeShader(); // reset grass etc.
     startup();          // start timers
     advanceFrame();     // draw starting position

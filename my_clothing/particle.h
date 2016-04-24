@@ -7,9 +7,9 @@ class Particle
 {
 public:
     // constructors/destructor
-    Particle();
+    //Particle();
     Particle(float x, float y, float z);
-    Particle(vec3 position, vec3 velocity, vec3 acceleration);
+    //Particle(vec3 position, vec3 velocity, vec3 acceleration);
     ~Particle();
 
     // attributes

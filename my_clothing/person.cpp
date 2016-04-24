@@ -11,13 +11,6 @@ Person::Person()
     body->radius = 2.0f * head->radius; // increase body size
 
     coefficientOfFriction = 80.0f;   // TODO: experiment to find a good one
-
-    /*vec3 limbStart = body->origin - vec3(body->radius, 0.0f, 0.0f);   // add limbs if there's time :)
-    vec3 limbEnd = limbStart - vec3(body->radius, 0.0f, 0.0f);
-    leftArm = new Limb(limbStart, limbEnd);
-    rightArm = new Limb(limbStart, limbEnd);
-    leftLeg = new Limb(limbStart, limbEnd);
-    rightLeg = new Limb(limbStart, limbEnd);*/
 }
 Person::~Person()
 {

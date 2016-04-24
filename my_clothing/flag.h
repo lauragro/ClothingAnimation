@@ -17,6 +17,7 @@ public:
     Flag(int zCentre, float startHeight);
     ~Flag();
 
+    void initialize();
     void draw();
 
     // type of flag to make
@@ -35,6 +36,8 @@ public:
     int implementedSprings;// = 0;
 
     // attributes
+    float zCentre;
+    float startHeight;
     float height;
     float width;
     float particleMass;

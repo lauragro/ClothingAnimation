@@ -19,10 +19,6 @@ public:
 
     Ball * head;
     Ball * body;
-    /*Limb * leftArm;   // add limbs if there's time :)
-    Limb * rightArm;
-    Limb * leftLeg;
-    Limb * rightLeg;*/
 
     bool collidesWith(Particle *p);
 

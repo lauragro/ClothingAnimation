@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-//#include <QMainWindow>
-//#include <QDialog>
 #include "ui_MainWindow.h"
 #include "glwidget.h"
 #include "spring.h"
