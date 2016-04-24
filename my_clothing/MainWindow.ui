@@ -14,7 +14,7 @@
    <string>Clothing Animation</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="OpenGLWidget" name="openGLWidget" native="true">
+   <widget class="GLWidget" name="glWidget" native="true">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -101,20 +101,10 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>OpenGLWidget</class>
+   <class>GLWidget</class>
    <extends>QWidget</extends>
-   <header location="global">openglwidget.h</header>
+   <header location="global">glwidget.h</header>
    <container>1</container>
-   <slots>
-    <signal>advanceFrame()</signal>
-    <slot>button_go()</slot>
-    <slot>button_stop()</slot>
-    <slot>button_reset()</slot>
-    <slot>box_dampingConstant()</slot>
-    <slot>box_restLength()</slot>
-    <slot>box_mass()</slot>
-    <slot>box_springConstant()</slot>
-   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -122,7 +112,7 @@
   <connection>
    <sender>button1</sender>
    <signal>clicked()</signal>
-   <receiver>openGLWidget</receiver>
+   <receiver>glWidget</receiver>
    <slot>button_go()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -138,7 +128,7 @@
   <connection>
    <sender>button2</sender>
    <signal>clicked()</signal>
-   <receiver>openGLWidget</receiver>
+   <receiver>glWidget</receiver>
    <slot>button_stop()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -154,7 +144,7 @@
   <connection>
    <sender>button3</sender>
    <signal>clicked()</signal>
-   <receiver>openGLWidget</receiver>
+   <receiver>glWidget</receiver>
    <slot>button_reset()</slot>
    <hints>
     <hint type="sourcelabel">

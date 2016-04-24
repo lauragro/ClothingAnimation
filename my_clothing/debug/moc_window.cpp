@@ -80,14 +80,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
-        switch (_id) {
-        case 0: _t->box_dampingConstant((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 1: _t->box_restLength((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 2: _t->box_mass((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 3: _t->box_springConstant((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 4: _t->dampingSlider((*reinterpret_cast< int(*)>(_a[1]))); break;
-        default: ;
-        }
+
     }
 }
 

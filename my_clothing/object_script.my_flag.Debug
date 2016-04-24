@@ -2,7 +2,6 @@ INPUT(
 ./debug\main.o
 ./debug\sim.o
 ./debug\window.o
-./debug\openglwidget.o
 ./debug\spring.o
 ./debug\flag.o
 ./debug\particle.o
@@ -10,7 +9,7 @@ INPUT(
 ./debug\camera.o
 ./debug\ground.o
 ./debug\person.o
-./debug\limb.o
+./debug\glwidget.o
 ./debug\moc_window.o
-./debug\moc_openglwidget.o
+./debug\moc_glwidget.o
 );

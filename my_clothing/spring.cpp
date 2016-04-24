@@ -23,13 +23,13 @@ Spring::Spring(Particle *particle1, Particle *particle2, int springType)
     // set spring constants struct > shear,bend
     switch(springType){
         case 0:
-            this->springConstant = 22.0f;//18.0f;//28.0f;//14.0f;
+            this->springConstant = 22.0f;
             break;
         case 1:
-            this->springConstant = 20.0f;//16.0f;//24.0f;//12.0f;
+            this->springConstant = 20.0f;
             break;
         default:
-            this->springConstant = 20.0f;//16.0f;//24.0f;//12.0f;
+            this->springConstant = 20.0f;
     }
 
 }
@@ -97,19 +97,6 @@ glm::vec3 Spring::force(int number)
     {
         // x = (|L| - L0)(L/|L|)
         x = normalize(lengthVector) * (springLength-restLength);
-
-        // v = v2 - v1
-        /*switch(number){   // don't need v here!
-        case 0:
-            v = particle1->velocity - particle2->velocity;
-        case 1:
-            v = particle1->velocity1 - particle2->velocity1;
-        case 2:
-            v = particle1->velocity2 - particle2->velocity2;
-        case 3:
-            v = particle1->velocity3 - particle2->velocity3;
-
-        }*/
 
         // F = -kx, damping added later as +cv
         force = -1.0f * springConstant * x * 0.5f;

@@ -3,8 +3,8 @@
 Flag::Flag(int zCentre, float startHeight)
 {
     // Attributes
-    height = 1200.0f;//900.0;//600.0;//300.0;
-    width = 1200.0f;//900.0;//450.0;
+    height = 1200.0f;
+    width = 1200.0f;
     particleMass = 1.0;
     dampingConstant = 1.0f;
 
@@ -78,21 +78,7 @@ Flag::Flag(int zCentre, float startHeight)
 
 Flag::~Flag()
 {
-    cout << "Flag Destruction\n";
 
-    int i,j;
-    // delete all springs from memory
-    for( i=0; i<implementedSprings; i++ )
-    {
-        delete springs[i];
-    }
-
-    // delete all particles from memory
-    for( i = 0; i<particlesHigh; i++ )
-        for( j=0; j<particlesWide; j++ )
-        {
-            delete particles[i][j];
-        }
 }
 
 
@@ -117,13 +103,11 @@ void Flag::createSheet(int zCentre)
     {
         // y coord
         y = height/particlesHigh*(i+1) - height*1.4;
-        //y += height/particlesHigh;
 
         for(int j=0; j<particlesWide; j++)
         {
             // x coord
             x = width/particlesWide*(j+1) - width/2;
-            //x += width/particlesWide;
 
             // create particle
             particles[i][j] = new Particle(x,y,z);
@@ -189,7 +173,6 @@ void Flag::drawTriangle(Particle *p1, Particle *p2, Particle *p3, const vec3 col
 
     glColor3fv( (GLfloat*) &colour );
 
-    //norm = normalize(calcTriangleNormal(p1,p2,p3));
     norm = -1.0f*normalize(p3->normal);
     glNormal3fv((GLfloat *) &norm);
     glVertex3fv((GLfloat *) &(p3->position ));
@@ -228,16 +211,16 @@ void Flag::draw()
     {
         for( j=0; j<particlesWide-1; j++)
         {
-            normal = calcTriangleNormal(    particles[i+1][j],//getParticle(x+1,y),
-                                            particles[i][j],//getParticle(x,y),
-                                            particles[i][j+1]);//getParticle(x,y+1));
+            normal = calcTriangleNormal(    particles[i+1][j],  //getParticle(x+1,y)
+                                            particles[i][j],    //getParticle(x,y)
+                                            particles[i][j+1]); //getParticle(x,y+1)
             particles[i+1][j]->normal += normal;
             particles[i][j]->normal += normal;
             particles[i][j+1]->normal += normal;
 
-            normal = calcTriangleNormal(    particles[i+1][j+1],//getParticle(x+1,y+1),
-                                            particles[i+1][j],//getParticle(x+1,y),
-                                            particles[i][j+1]);//getParticle(x,y+1));
+            normal = calcTriangleNormal(    particles[i+1][j+1],//getParticle(x+1,y+1)
+                                            particles[i+1][j],  //getParticle(x+1,y)
+                                            particles[i][j+1]); //getParticle(x,y+1)
             particles[i+1][j+1]->normal += normal;
             particles[i+1][j]->normal += normal;
             particles[i][j+1]->normal += normal;
@@ -249,7 +232,6 @@ void Flag::draw()
     {
         for( j=0; j<particlesWide-1; j++)
         {
-            //vec3 colour = vec3(0.0f,0.0f,0.0f);
             if (j%2 == 0)
             {
                 // red and white color is interleaved according to which column number
@@ -259,12 +241,12 @@ void Flag::draw()
                 colour = vec3(1.0f,0.0f,0.0f);
             }
 
-            drawTriangle(particles[i+1][j], //getParticle(x+1,y),
-                        particles[i][j],    //getParticle(x,y),
-                        particles[i][j+1],colour);//getParticle(x,y+1),colour);
-            drawTriangle(particles[i+1][j+1],//getParticle(x+1,y+1),
-                        particles[i+1][j],  //getParticle(x+1,y),
-                        particles[i][j+1],colour);//getParticle(x,y+1),colour);
+            drawTriangle(particles[i+1][j],         //getParticle(x+1,y)
+                        particles[i][j],            //getParticle(x,y)
+                        particles[i][j+1],colour);  //getParticle(x,y+1),colour)
+            drawTriangle(particles[i+1][j+1],       //getParticle(x+1,y+1)
+                        particles[i+1][j],          //getParticle(x+1,y)
+                        particles[i][j+1],colour);  //getParticle(x,y+1),colour)
         }
     }
     glEnd();

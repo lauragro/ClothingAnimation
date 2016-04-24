@@ -13,10 +13,9 @@ Ball::~Ball()
 
 }
 
-// Draw function
+// Draw function (options for with/without textures)
 void Ball::draw(GLuint texture)
 {
-
     glMatrixMode(GL_MODELVIEW);
 
     // get the coordinates and radius
@@ -30,16 +29,15 @@ void Ball::draw(GLuint texture)
 
     glColor3f(0.1,0.3,0.6);
 
-    /* draw 3d sphere */
+    // Uncomment to draw WITHOUT textures
     /*int numSlices = 32;
     int numStacks = 8;
-
     GLUquadricObj* pQuadric = gluNewQuadric();  // make the quadric
     assert(pQuadric!=NULL); // make sure the quadric exists
     glTranslatef(origin.x, origin.y, origin.z); // move sphere to ball's origin
     gluSphere(pQuadric,radius,numSlices,numStacks); // draw the sphere*/
 
-
+    // Uncomment to draw WITH textures
     drawTextures(texture);
 
 }
@@ -76,32 +74,14 @@ bool Ball::collidesWith(Particle * p, int number)
     case 2:
         distanceVector = p->position2 - origin;
         break;
-    default://case 3:
+    default:
         distanceVector = p->position3 - origin;
-        //break;
     }
 
     float distance = length(distanceVector);
 
     if( distance < radius * 1.1f )  // <=
     {
-        // push particle back to ball's circumference
-        /*vec3 x = origin + normalize(distanceVector) * radius * 1.1f;
-
-        switch(number){
-        case 0:
-            p->position = x;
-            break;
-        case 1:
-            p->position1 = x;
-            break;
-        case 2:
-            p->position2 = x;
-            break;
-        default:    // case 3:
-            p->position3 = x;
-        }*/
-
         // collision detected
         return true;
     }
@@ -111,32 +91,9 @@ bool Ball::collidesWith(Particle * p, int number)
 }
 
 
-//========TEXTURES================================================
+// Draw ball with textures
 void Ball::drawTextures(GLuint texture)
 {
-    /*glMatrixMode(GL_TEXTURE);
-
-    GLfloat planes[] = {0.5, 0.0, 0.0, 0.5}; // s = x/2 + 1/2
-    GLfloat planet[] = {0.0, 0.5, 0.0, 0.5}; // t = y/2 + 1/2
-    //GLfloat depth[] =  {0.0, 0.0, 0.5, 0.5}; // r = z/2 + 1/2 ?
-
-    GLfloat zPlane[] = { 0.0f, 0.0f, 1.0f, 0.0f };
-
-    glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
-    glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
-    glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);    // ?
-    glTexGenfv(GL_S, GL_SPHERE_MAP, planes);
-    glTexGenfv(GL_T, GL_SPHERE_MAP, planet);
-    glTexGenfv(GL_R, GL_SPHERE_MAP, zPlane);
-    glEnable(GL_TEXTURE_GEN_S);
-    glEnable(GL_TEXTURE_GEN_T);
-    glEnable(GL_TEXTURE_GEN_R);
-
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-
-
-    glRotatef(45.0f,0.0f,0.0f,1.0f);*/
     glPushMatrix();
     glTranslatef(origin.x, origin.y, origin.z);
     glShadeModel( GL_SMOOTH );
@@ -145,7 +102,6 @@ void Ball::drawTextures(GLuint texture)
         glColor3f(1, 1, 1);
         glBindTexture(GL_TEXTURE_2D, texture);
 
-        //glBegin(GL_TRIANGLES);
             int numSlices = 32;
             int numStacks = 32;
             GLUquadricObj* sphere = gluNewQuadric();  // make the quadric
@@ -157,11 +113,7 @@ void Ball::drawTextures(GLuint texture)
             gluQuadricTexture(sphere,GL_TRUE);
             gluSphere(sphere,radius,numSlices,numStacks); // draw the sphere
             gluDeleteQuadric(sphere);
-        //glEnd();
+
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
-
-    //glMatrixMode(GL_TEXTURE);
-    //glLoadIdentity();
-    //glMatrixMode(GL_MODELVIEW);
 }

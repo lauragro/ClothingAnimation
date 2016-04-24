@@ -11,9 +11,6 @@ static int timer_interval = 10;
 // Constructor
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
-    // test
-    //setFormat(QGLFormat(QGL::Rgba | QGL::DoubleBuffer | QGL::DepthBuffer));
-
     mySim = new Sim();
     myCamera = new Camera();
     startup();
@@ -39,12 +36,7 @@ void GLWidget::startup()
     connect( frameTimer, SIGNAL(timeout()), this, SLOT(advanceFrame()) );
 
     // initialize camera settings
-    myCamera->startup(this->width(), this->height());
-
-    /* Testing */
-    cout << "widget thinks width is " << this->width() << endl;
-    cout << "widget thinks height is " << this->height() << endl;
-
+    myCamera->startup();
 }
 
 
@@ -52,9 +44,6 @@ void GLWidget::startup()
 void GLWidget::initializeGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // white background
-    //glClearColor(1, 1, 1, 1);
 
     /* setup viewing *******************************/
     glMatrixMode(GL_PROJECTION);
@@ -85,24 +74,6 @@ void GLWidget::initializeGL()
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
     glLightfv(GL_LIGHT0, GL_POSITION, position);
 
-
-    /*GLfloat light0_pos[] = {100.0f,-1000.0f,100.0f,1.0f};
-    //GLfloat light0_dir[] = {0.0,0.0,0.0,0.0};
-    GLfloat diffuse0[] = {1.0f,1.0f,1.0f,-1.0f};
-    //GLfloat ambient0[] = {0.5,0.5,0.5,1.0};
-    GLfloat specular0[] = {1.0f,1.0f,1.0f,-1.0f};
-
-
-
-    glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
-    //glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);*/
-
-    // add a small amount of white light everywhere
-    //GLfloat global_ambient[] = {0.5f,0.5f,0.5f,1.0f};
-    //glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
-
     timer->start(50); // 20 fps: timer should run always, not tied to animation
     // frame timer is controlled by go and stop buttons
 
@@ -111,11 +82,8 @@ void GLWidget::initializeGL()
 // Painting things
 void GLWidget::paintGL()
 {
-    //====Camera stuff from Lucky and 305 assignemnt===============
     myCamera->updatePos();
-    //=============================================================
 
-    //==================Camera operations===========================
     // Set the modelview matrix.
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -124,9 +92,7 @@ void GLWidget::paintGL()
 
     gluLookAt(myCamera->CameraPos.x, myCamera->CameraPos.y, myCamera->CameraPos.z,  // camera xyz
               0, 0, 0,       // target xyz
-              0, -1, 0);     // up xyz*/
-    //=============================================================
-
+              0, -1, 0);     // up xyz
 
     // if a simulation is present, draw it
     if (mySim != NULL) mySim->draw(textures);
@@ -153,8 +119,6 @@ void GLWidget::advanceFrame()
         cerr << "Simulation stopped \n";
     }
 
-    //updateGL();   // only update graphics when advance time occurs, not when advance frame does.
-
 }
 
 // Advance time logic (camera stuff)
@@ -162,7 +126,7 @@ void GLWidget::advanceTime()
 {
 
 
-    //====Camera stuff from Lucky and 305 assignment====
+    // Camera logic adapted from Lucky and 305 assignment
     myCamera->camera_phi += myCamera->camera_phi_speed;
     myCamera->camera_phi_speed *= 0.8;
 
@@ -178,7 +142,6 @@ void GLWidget::advanceTime()
     {
         myCamera->camera_theta_speed = 0;
     }
-    //==================================================
 
     updateGL();
 
@@ -222,36 +185,22 @@ void GLWidget::resizeGL( int winw, int winh )
     glViewport( 0, 0, winw, winh );
     cerr << "width = " << winw << endl;
     cerr << "height = " << winh << endl;
-
-    // Defines the position of the camera and the target
-     //glLoadIdentity();
-     //gluLookAt(0, 80, 200, 0, 0, 0, 0, 1, 0);
-
-    /*glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    glOrtho(-1.0, 1.0, -1.0, 1.0,-10.0,10.0);
-    glMatrixMode(GL_MODELVIEW);*/
-
-   // if (mySim != NULL) mySim->setSize(winw, winh );
 }
 
 /********** React to mouse buttons ***********/
 void GLWidget::mousePressEvent(QMouseEvent *e)
 {
     myCamera->MouseButton(e, true);
-    //updateGL();   // not necessary
 }
 
 void GLWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     myCamera->MouseButton(e, false);
-    //updateGL();   // not necessary
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *e)
 {
     myCamera->MouseMove(e->x(), e->y());
-    //updateGL();   // not necessary
 }
 
 /*********** React to keyboard buttons ********/
@@ -263,7 +212,6 @@ void GLWidget::keyPressEvent(QKeyEvent *k)
 
     // Left arrow
     if(k->matches(QKeySequence::MoveToPreviousChar))
-    //if(k->matches(QKeySequence(Qt::Key_A)))
     {
         vec3 p = vec3(mySim->myPerson->origin.x + stepSize,
                       mySim->myPerson->origin.y,
@@ -276,8 +224,6 @@ void GLWidget::keyPressEvent(QKeyEvent *k)
 
         cout << "LEFT ARROW" << endl;
 
-        // assure the simulation step occurs
-        //advanceFrame();
     }
     // Right arrow
     else if(k->matches(QKeySequence::MoveToNextChar))
@@ -293,8 +239,6 @@ void GLWidget::keyPressEvent(QKeyEvent *k)
 
         cout << "RIGHT ARROW" << endl;
 
-        // assure the simulation step occurs
-        //advanceFrame();
     }
     // Up arrow
     else if(k->matches(QKeySequence::MoveToPreviousLine))
@@ -311,8 +255,6 @@ void GLWidget::keyPressEvent(QKeyEvent *k)
 
         cout << "UP ARROW" << endl;
 
-        // assure the simulation step occurs
-        //advanceFrame();
     }
     // Down arrow
     else if(k->matches(QKeySequence::MoveToNextLine))
@@ -328,12 +270,8 @@ void GLWidget::keyPressEvent(QKeyEvent *k)
 
         cout << "DOWN ARROW" << endl;
 
-        // assure the simulation step occurs
-        //advanceFrame();
     }
 
-    //k = NULL;
-    //updateGL();
 }
 
 
@@ -381,12 +319,11 @@ void GLWidget::initializeShader()
 {
     //glEnable(GL_CULL_FACE);
     glEnable(GL_COLOR_MATERIAL);
-    //glColorMaterial(GL_FRONT,GL_AMBIENT_AND_DIFFUSE);
+    glColorMaterial(GL_FRONT,GL_AMBIENT_AND_DIFFUSE);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_TEXTURE_2D);
     //glEnable(GL_FRAMEBUFFER_SRGB);  // proper colour balancing
-    //Load2DGLTexture("../grass.bmp",0);
 
 
     //Load2DGLTexture("../American_oak_pxr128.tif",0);
